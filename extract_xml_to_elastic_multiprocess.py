@@ -157,7 +157,7 @@ def elastic_index(ctr, extracted_data):
     """
 
     try:
-        es.index(index='ct1', doc_type='xmldata', id=ctr, body=extracted_data)
+        es.index(index='ct', doc_type='xmldata', id=ctr, body=extracted_data)
 
     except Exception as e:
         print('\nDocument not indexed!')
