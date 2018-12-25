@@ -1,15 +1,3 @@
-#!/usr/bin/env python2
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Jun  1 13:53:40 2017
-
-@author: aj
-
-This program extracts the desired data from the input xml files and indexes it in Elasticsearch.
-The input files this program currently works on is the clinical trials dataset provided in the TREC 2017 Precision Medicine/ Clinical Decision Support Track. More information about this can be found here: http://trec-cds.appspot.com/2017.html
-"""
-
-
 import glob
 import xml.etree.ElementTree as ET
 import collections
@@ -30,7 +18,7 @@ def extract_data_xml():
        ctr = 0
        
        #We will print the progress as we process each file
-       print '\nProgress:'
+       print('\nProgress:')
        
        #This for loop iterates over each input file. Within each try-except block we try to extract the data from one particular xml field. This extracted data is stored in an ordered dictionary with key as the field name and value as the extracted data.
        #Currently the following fields are extracted: nct_id, brief_title, brief_summary, detailed_description, overall_status, condition, eligibility, gender, gender_based, minimum_age, maximum_age, keyword, mesh_term
@@ -150,7 +138,7 @@ def extract_data_xml():
               
               #Increment the counter and print the progress in the following format: current counter value/total number of input files.
               ctr+=1
-              print ctr,'/',len(list_of_files)
+              print(ctr,'/',len(list_of_files))
 
 
 def elastic_index(ctr, extracted_data):
@@ -163,8 +151,8 @@ def elastic_index(ctr, extracted_data):
               es.index(index='ct', doc_type='xmldata', id=ctr, body=extracted_data)
 
        except Exception as e:
-              print '\nDocument not indexed!'
-              print 'Error Message:',e,'\n'
+              print('\nDocument not indexed!')
+              print('Error Message:',e,'\n')
        
        return
 
@@ -180,8 +168,8 @@ if __name__ == '__main__':
        try:
               es = elasticsearch_copy.Elasticsearch([{'host': 'localhost', 'port': 9200}])
        except Exception as e:
-              print '\nCannot connect to Elasticsearch!'
-              print 'Error Message:',e,'\n'
+              print('\nCannot connect to Elasticsearch!')
+              print('Error Message:',e,'\n')
        #Call the function to start extracting the data
        extract_data_xml()
 
