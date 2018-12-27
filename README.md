@@ -1,3 +1,6 @@
+### 国科大2018年秋季现代信息检索大作业
+Authors: Huang, Hui, Gao
+
 ### 代码介绍
 * `elasticsearch_copy`: 需要代码包，可以通过pip安装，也可以直接copy
 
