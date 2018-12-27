@@ -303,7 +303,10 @@ def es_query(group_id, extracted_data):
 
 
 if __name__ == '__main__':
-    # Create connection to Elasticsearch listening on localhost port 9200. It uses the Python Elasticsearch API which is the official low-level client for Elasticsearch.
+    """
+    Create connection to Elasticsearch listening on localhost port 9200.
+    It uses the Python Elasticsearch API which is the official low-level client for Elasticsearch.
+    """
     try:
         es = elasticsearch_copy.Elasticsearch([{'host': 'localhost', 'port': 9200}])
     except Exception as e:

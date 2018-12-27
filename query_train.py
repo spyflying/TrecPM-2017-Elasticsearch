@@ -28,10 +28,10 @@ with open("stop_list.txt", "r") as f:
         stop_list.append(w)
 
 
-
 def count_tf(group_id, extracted_data, topic_id, is_rel):
-    """This function is to count tf and idf for given doc's extracted_data"""
-
+    """
+    This function is to count tf and idf for given doc's extracted_data
+    """
     tmp_df = collections.OrderedDict()
     # print("group {}, tmp_df {}".format(group_id, tmp_df))
 
@@ -47,7 +47,7 @@ def count_tf(group_id, extracted_data, topic_id, is_rel):
                     # get rid of stop_word and punctuations
                     if (w not in stop_list) and (w not in punc_list) and (not w.isdigit()):
 
-                    # get rid of postfix like 's, 've
+                        # get rid of postfix like 's, 've
                         for postfix in stop_list[0:7]:
                             i = w.find(postfix)
                             if i != -1:
@@ -92,10 +92,11 @@ def count_tf(group_id, extracted_data, topic_id, is_rel):
     # input()
 
 
-
 def extract_doc(group_id):
-    """given group id, this function is to count tf and idf for all related docs and 30 unrelated docs which are randomly chosen for each topics"""
-
+    """
+    given group id, this function is to count tf and idf for all related docs
+    and 30 unrelated docs which are randomly chosen for each topics
+    """
     ct = 0
     topic_list = []
     for i in range(5):
@@ -137,8 +138,9 @@ def extract_doc(group_id):
 
 
 def xml_extract(doc_id):
-    """extract some fields of xml data and return extracted_data"""
-
+    """
+    extract some fields of xml data and return extracted_data
+    """
     file_path = data_root + "/clinicaltrials_xml/*/*/{}.xml".format(doc_id)
     file_list = glob.glob(file_path)
     if len(file_list) != 1:
@@ -201,8 +203,11 @@ def xml_extract(doc_id):
     # print(extracted_data)
     return extracted_data
 
+
 def range_count(group_id, df_dict, tf_dict, df_un_dict, tf_un_dict):
-    """This function is to filter words with its tf and idf"""
+    """
+    This function is to filter words with its tf and idf
+    """
     # count df_dict > 200
     df_tf_dict = dict()
     df_tf_un_dict = dict()
@@ -296,6 +301,7 @@ def range_count(group_id, df_dict, tf_dict, df_un_dict, tf_un_dict):
     # f.write("-------------------------------------------------------\n")
     f.close()
 
+
 def group_process(group_id):
     if not os.path.exists(cache_root + "/cache{}/all_tf.txt".format(str(group_id+1))):
         extract_doc(group_id)
@@ -326,7 +332,17 @@ def group_process(group_id):
         tf_file.close()
         df_file.close()
 
+
 def main():
+    # Create cache directories
+    work_dir = os.getcwd()
+    cache_dir = os.path.join(work_dir, cache_root)
+    if not os.path.exists(cache_dir):
+        os.mkdir(cache_dir)
+    for idx in range(1, 6):
+        if not os.path.exists(os.path.join(cache_dir, "cache{}".format(idx))):
+            os.mkdir(os.path.join(cache_dir, "cache{}".format(idx)))
+
     # Note the start time
     start_time = time.time()
     print("Counting tf and idf")
@@ -338,6 +354,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-

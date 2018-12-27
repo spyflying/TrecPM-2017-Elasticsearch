@@ -19,7 +19,7 @@ def extract_data_xml(kernel_index):
     list_of_files = []
     dir_list = ['%03d' % i for i in range(32)]
     for index in range(kernel_index * 4, kernel_index * 4 + 4):
-        file_path = "/home/sofiahuang/code/dataset/clinicaltrials/clinicaltrials_xml/" + dir_list[index] + '/*/*.xml'
+        file_path = "./clinicaltrials/clinicaltrials_xml/" + dir_list[index] + '/*/*.xml'
         print(file_path)
         list_of_files += glob.glob(file_path)
 

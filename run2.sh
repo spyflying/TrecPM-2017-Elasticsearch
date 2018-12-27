@@ -17,4 +17,4 @@ echo "Calculating Precision"
 cd trec_eval.9.0
 make clean
 make
-trec_eval $BASE_PATH/clinicaltrials/qrels-final-trials.txt $BASE_PATH/qresults/results.txt
+trec_eval ./clinicaltrials/qrels-final-trials.txt ./qresults/results.txt
