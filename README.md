@@ -109,17 +109,17 @@
 以上查询不采用topic的ground truth信息,仅根据已有的索引和检索字段进行查询,精度略低
 * 训练: 采用5折交叉验证,24个topic作为训练样本,6个topic作为测试样本.
 
-正样本: 每个topic对应的ground truth中所有相关文档
+  正样本: 每个topic对应的ground truth中所有相关文档
 
-负样本: 每个topic对应的ground truth中所有不相关文档中随机挑选30条
+  负样本: 每个topic对应的ground truth中所有不相关文档中随机挑选30条
 
-topic frequency: 每个word在每个topic中出现的总次数,定义为topic frequency
+  topic frequency: 每个word在每个topic中出现的总次数,定义为topic frequency
 
-doc frequency: 每个word在所有topic的所有文档中出现的总次数,为doc frequency
+  doc frequency: 每个word在所有topic的所有文档中出现的总次数,为doc frequency
 
-训练过程是基于相关文档和不相关文档的topic frequency和doc frequency进行的.规定高频词为:参与训练的24个topic中,如果在其中12个或更多的topic的对应文档中的topic frequency都大于50,并且doc frequency大于300,这个word就可以认为是高频词;训练中,如果一个word在相关文档中是高频词,且在不相关文档中不是高频词,可以说明这个word更可能是相关文档具有的特征,可以被选为查询词构建查询语句.之所以要在12个或更多的topic中topic frequency都很大,是因为这样选出来的词在不同topic的相关文档中出现相对均匀,更容易迁移到测试topic上.
+  训练过程是基于相关文档和不相关文档的topic frequency和doc frequency进行的.规定高频词为:参与训练的24个topic中,如果在其中12个或更多的topic的对应文档中的topic frequency都大于50,并且doc frequency大于300,这个word就可以认为是高频词;训练中,如果一个word在相关文档中是高频词,且在不相关文档中不是高频词,可以说明这个word更可能是相关文档具有的特征,可以被选为查询词构建查询语句.之所以要在12个或更多的topic中topic frequency都很大,是因为这样选出来的词在不同topic的相关文档中出现相对均匀,更容易迁移到测试topic上.
 
-* 测试:除了采用topic中的字段构建查询语句,还使用了从训练样本中得到的关键词构建查询语句.并且,为了使得不同查询语句具有不同的权重,还加入"boost"字段,对"desease"和"gene"查询赋予更高的权重,权重是根据测试集的表现进行挑选的.
+* 测试：除了采用topic中的字段构建查询语句,还使用了从训练样本中得到的关键词构建查询语句.并且,为了使得不同查询语句具有不同的权重,还加入"boost"字段,对"desease"和"gene"查询赋予更高的权重,权重是根据测试集的表现进行挑选的.
 ```
     "multi_match": {
         "query" : query_word[group_id],
@@ -141,5 +141,5 @@ doc frequency: 每个word在所有topic的所有文档中出现的总次数,为d
     train=1,2,3,4; test=5: clinical trial including criteria advanced and/or drug tumors ≥ potential inhibitor history solid combination mutation
 ```
 
-虽然每轮训练得到的查询词数目不同,但是很多词基本相同
+  虽然每轮训练得到的查询词数目不同,但是很多词基本相同
 
